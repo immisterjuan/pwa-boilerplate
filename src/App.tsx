@@ -1,19 +1,38 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { AppLayout } from './components/layout';
+import {
+  About,
+  Account,
+  Dashboard,
+  Login,
+  Registration,
+  Settings,
+  SplashIntro,
+} from './components/pages';
+import { useAuth } from './hooks/useAuth';
 
 function App() {
+  const { isAuthenticated } = useAuth();
+
   return (
-    <Container maxWidth="sm" className="py-8">
-      <Box className="flex flex-col items-center gap-4 text-center">
-        <Typography variant="h4" component="h1">
-          PWA Boilerplate
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Vite + React + TypeScript + Tailwind CSS + Material UI, installable
-          and offline-ready.
-        </Typography>
-        <Button variant="contained">Get started</Button>
-      </Box>
-    </Container>
+    <Routes>
+      <Route path="/" element={<SplashIntro />} />
+      <Route path="/login" element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />} />
+      <Route
+        path="/register"
+        element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Registration />}
+      />
+
+      {/* Protected routes: redirect to /login when there's no stored user. */}
+      <Route element={isAuthenticated ? <AppLayout /> : <Navigate to="/login" replace />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/about" element={<About />} />
+      </Route>
+
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 

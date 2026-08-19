@@ -24,6 +24,8 @@ This repository, `pwa-boilerplate`, is a Vite + React + TypeScript + Tailwind CS
 
 ## Coding guidelines
 
+**STRICT RULE: TypeScript only.** All source code MUST be `.ts`/`.tsx`. Never author new `.js`/`.jsx` files under `src/`. The only allowed plain-JS files are existing tool configs that require it (`postcss.config.js`, `tailwind.config.js`) and build-generated artifacts (`vite.config.js`, `*.tsbuildinfo`) — never hand-write new ones.
+
 - Write React function components with hooks; avoid class components.
 - Keep TypeScript strict-mode clean — no unused locals/parameters, no implicit `any`.
 - Prefer Tailwind utility classes for layout/spacing; use MUI components for interactive/structured UI elements.

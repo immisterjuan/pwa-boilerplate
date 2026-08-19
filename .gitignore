@@ -3,6 +3,10 @@ dist
 dist-ssr
 *.local
 
+# Local environment overrides (never commit machine/secret-specific values)
+.env.local
+.env.*.local
+
 # vite-plugin-pwa generated files
 dev-dist
 
